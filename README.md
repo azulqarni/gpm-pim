@@ -3,7 +3,7 @@
 In this project, we evaluate the scalability of NDP architectures for a varying NDP number of over implementations of common GPM the benchmarks provided in this repository.
 
 ## Building the Benchmarks
-The benchmakrs are located inside [gpm-pim/benchmarks/graph_mining](https://github.com/gpm-pim/benchmarks/graph_mining) and use OpenMP for multithreading.
+The benchmakrs are located inside [gpm-pim/benchmarks/graph_mining](https://github.com/azulqarni/gpm-pim/benchmarks/graph_mining) and use OpenMP for multithreading.
 1) In the Makefile, set the parameter DNUM_THREADS=1 appropriately to enable a respective amount of threads to be used for each application
 2) Use `make` to build the benchmarks.
 3) Use `graphgen.py` to generate random graphs of N nodes; N may provided as command line argument. The subfolder `data` contains some input graphs in the adjacency list format.
