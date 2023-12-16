@@ -10,7 +10,7 @@ The benchmakrs are located inside [gpm-pim/benchmarks/graph_mining](https://gith
 
 ## Running the Simulations
 
-1) You will first need to build ZSim+Ramulator [Ramulator-PIM repository](https://github.com/CMU-SAFARI/ramulator-pim), as it is not included in this repository.
+1) You will first need to build ZSim+Ramulator [Ramulator-PIM repository](https://github.com/CMU-SAFARI/ramulator-pim), as it is not included here.
 3) To obtain memory traces from the benchmarks using ZSim, run `batch_sims.sh`.
    - Make sure to update the executable path @line 15.
    - Note that this script modifies the ZSim configuration files in `tests` folder, accordingly.
