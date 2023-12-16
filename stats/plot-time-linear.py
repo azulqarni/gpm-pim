@@ -17,14 +17,17 @@ benchmarks = ["trcount", "four-cliques", "five-cliques", "diamond-count", "four_
 # List of PIM cores
 pim_cores = [4, 8, 16, 32, 48]
 
+# Set up subplots
 fig, axes = plt.subplots(nrows=len(benchmarks), ncols=1, figsize=(8, 6), sharex=True)
 
+# Plot the data and linear-speedup curves for execution time
 bar_width = 0.15
 bar_positions = np.arange(len(pim_cores))
 
 for i, benchmark in enumerate(benchmarks):
     data_exec_time = []
 
+    # Iterate through PIM cores
     for pim_core in pim_cores:
         file_path_exec_time = f"pim-{benchmark}-{pim_core}-threads.stats"
         exec_time = extract_total_time(file_path_exec_time)
@@ -44,6 +47,10 @@ for i, benchmark in enumerate(benchmarks):
         height = bar.get_height()
         axes[i].text(bar.get_x() + bar.get_width() / 2, height, f'{height:.2f} ms', ha='center', va='bottom')
 
+    # Print Points of the Linear-Speedup Curve for Execution Time
+    # for x, y in zip(bar_positions, linear_speedup_exec_time):
+        # axes[i].text(x, y, f'({x}, {y:.2f} ms)', ha='right', va='bottom')
+
     # Customize the subplot
     axes[i].legend()
     # axes[i].set_title(f'Execution Time (ms) for {benchmark} Benchmark')
@@ -60,5 +67,8 @@ plt.xticks(bar_positions, pim_cores)  # Add this line to set x-axis labels
 fig.text(0.04, 0.5, ' ', va='center', rotation='vertical', ha='center', fontsize=12)  # Common ylabel for all subplots
 # plt.tight_layout()
 
+# Save the plot as a PDF file
 plt.savefig('execution_time_plot.pdf')
 
+# Optionally, you can display the plot if needed
+# plt.show()

@@ -25,14 +25,17 @@ benchmarks = ["trcount", "four-cliques", "five-cliques", "diamond-count", "four_
 # List of PIM cores
 pim_cores = [4, 8, 16, 32, 48]
 
+# Set up subplots
 fig, axes = plt.subplots(nrows=len(benchmarks), ncols=1, figsize=(8, 10), sharex=True)
 
+# Plot the data and linear-speedup curves
 bar_width = 0.15
 bar_positions = np.arange(len(pim_cores))
 
 for i, benchmark in enumerate(benchmarks):
     data_utilization = []
 
+    # Iterate through PIM cores
     for pim_core in pim_cores:
         file_path = f"pim-{benchmark}-{pim_core}-threads.stats"
         utilization = extract_bandwidth_metrics(file_path)
@@ -56,6 +59,7 @@ for i, benchmark in enumerate(benchmarks):
     # for x, y in zip(bar_positions, linear_speedup_points):
         # axes[i].text(x, y, f'({x}, {y:.2f}%)', ha='right', va='bottom')
 
+    # Customize the subplot
     # axes[i].set_ylabel('Bandwidth Utilization (%)')
     axes[i].legend()
     # axes[i].set_title(f'Bandwidth Utilization (%) for {benchmark} Benchmark')
@@ -66,5 +70,8 @@ plt.xlabel('Number of PIM Cores')
 plt.xticks(bar_positions, pim_cores)  # Add this line to set x-axis labels
 plt.tight_layout()
 
+# Save the plot as a PDF file
 plt.savefig('bandwidth_utilization_plot.pdf')
 
+# Optionally, you can display the plot if needed
+# plt.show()
