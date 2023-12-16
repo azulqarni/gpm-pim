@@ -19,14 +19,11 @@ benchmarks = ["trcount", "four-cliques", "five-cliques", "diamond-count", "four_
 # List of PIM cores
 pim_cores = [4, 8, 16, 32, 48]
 
-# Initialize data for plotting
 data = {benchmark: [] for benchmark in benchmarks}
 
-# Iterate through benchmarks
 for benchmark in benchmarks:
     ipc_values = []
 
-    # Iterate through PIM cores
     for pim_core in pim_cores:
         file_path = f"pim-{benchmark}-{pim_core}-threads.stats"
         ipc = extract_ipc(file_path)
@@ -48,7 +45,6 @@ for i, pim_core in enumerate(pim_cores):
     plt.bar(bar_positions + i * bar_width, [data[benchmark][i] for benchmark in benchmarks], bar_width,
             label=f'{pim_core} Units', color=sm.to_rgba(pim_core))
 
-# Customize the plot
 plt.xlabel('Benchmarks')
 plt.ylabel('IPC')
 plt.title('IPC Performance for GPM Benchmarks and Varying NDP Units')
@@ -56,8 +52,5 @@ plt.xticks(bar_positions + (len(pim_cores) - 1) * bar_width / 2, benchmarks)
 plt.legend(title='Number of NDP Units')
 plt.tight_layout()
 
-# Save the plot as a PDF file
 plt.savefig('ipc_performance_plot.pdf')
 
-# Optionally, you can display the plot if needed
-# plt.show()

@@ -17,17 +17,14 @@ benchmarks = ["trcount", "four-cliques", "five-cliques", "diamond-count", "four_
 # List of PIM cores
 pim_cores = [4, 8, 16, 32, 48]
 
-# Set up subplots
 fig, axes = plt.subplots(nrows=len(benchmarks), ncols=1, figsize=(8, 6), sharex=True)
 
-# Plot the data and linear-speedup curves for execution time
 bar_width = 0.15
 bar_positions = np.arange(len(pim_cores))
 
 for i, benchmark in enumerate(benchmarks):
     data_exec_time = []
 
-    # Iterate through PIM cores
     for pim_core in pim_cores:
         file_path_exec_time = f"pim-{benchmark}-{pim_core}-threads.stats"
         exec_time = extract_ipc(file_path_exec_time)
@@ -35,10 +32,10 @@ for i, benchmark in enumerate(benchmarks):
         if exec_time is not None:
             data_exec_time.append(exec_time)
 
-    # Plot Execution Time in the current subplot
+    # Plot IPC in the current subplot
     bars = axes[i].bar(bar_positions, data_exec_time, bar_width, label=f'{benchmark} - IPC', alpha=0.8, color='orange')
 
-    # Plot Linear-Speedup Curve for Execution Time
+    # Plot Linear-Speedup Curve
     linear_speedup_exec_time = np.array([1, 2, 4, 8, 12]) * data_exec_time[0]
     axes[i].plot(bar_positions, linear_speedup_exec_time, marker='o', linestyle='-', color='red', label='Linear Speedup - IPC')
 
@@ -47,11 +44,10 @@ for i, benchmark in enumerate(benchmarks):
         height = bar.get_height()
         axes[i].text(bar.get_x() + bar.get_width() / 2, height, f'{height:.2f} ms', ha='center', va='bottom')
 
-    # Print Points of the Linear-Speedup Curve for Execution Time
+    # Print Points of the Linear-Speedup Curve
     # for x, y in zip(bar_positions, linear_speedup_exec_time):
         # axes[i].text(x, y, f'({x}, {y:.2f} ms)', ha='right', va='bottom')
 
-    # Customize the subplot
     axes[i].legend()
     axes[0].set_title(f'Instructions Per Cycle (IPC)')
 
@@ -60,14 +56,10 @@ for i, benchmark in enumerate(benchmarks):
     y_range = y_upper - y_lower
     axes[i].set_ylim(y_lower, y_upper + 0.3 * y_range)
 
-# Customize the overall plot
 plt.xlabel('Number of PIM Cores')
 plt.xticks(bar_positions, pim_cores)  # Add this line to set x-axis labels
 # fig.text(0.04, 0.5, 'Execution Time (ms)', va='center', rotation='vertical', ha='center', fontsize=12)  # Common ylabel for all subplots
 plt.tight_layout()
 
-# Save the plot as a PDF file
 plt.savefig('ipc_plot.pdf')
 
-# Optionally, you can display the plot if needed
-# plt.show()
